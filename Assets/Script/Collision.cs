@@ -150,6 +150,10 @@ namespace FluffyAdventure {
                     Destroy(collision.gameObject);
                 }
             }
+            else if (collision.gameObject.CompareTag("Ground"))
+            {
+
+            }
         }
 
         private void OnTriggerExit2D(Collider2D collision)

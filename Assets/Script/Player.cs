@@ -48,6 +48,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Time.timeScale == 0)
+        {
+            return;
+        }
+
         if (!isOnLadder)
         {
             if (Input.GetKeyDown(KeyCode.W)) //Kiedy przycisk jest wcisniety to tak się dzieje
@@ -110,6 +115,7 @@ public class Player : MonoBehaviour
                         isOnLadder = false;
                         GetComponent<Animator>().SetBool("OnLadder", false);
                         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                        
                     }
                     else
                     {
