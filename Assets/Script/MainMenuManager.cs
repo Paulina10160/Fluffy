@@ -11,6 +11,12 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
+    public void PlayHistory()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("HistoryScene");
+    }
+
     public void OnExit()
     {
         //to dziala tylko w edytorze unity, pozniej trzeba dodac inna funkcje

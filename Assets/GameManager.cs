@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,11 +47,18 @@ public class GameManager : MonoBehaviour
                 }
             }
 
+            MakeSnailsAlive();
             player.ResetPosition(minObject.transform.position);
+            player.ResetStats();
             Time.timeScale = 1;
             gameOverPanel.SetActive(false);
             gamePanel.SetActive(true);
         }
+    }
+
+    private void MakeSnailsAlive()
+    {
+        FindObjectsOfType<EnemyHp>().ToList().ForEach(x => x.SetAlive());
     }
 
     public void OnReplay()

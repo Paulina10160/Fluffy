@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace FluffyAdventure {
@@ -14,11 +15,13 @@ namespace FluffyAdventure {
 
         private float curentTime;
 
+        public int diamonds = 0;
+
         public HpStrip hpStrip;
 
         public GameManager gameManager;
 
-        public GameObject ladder;
+        public GameObject ladder { get; set; }
 
         // Start is called before the first frame update
         void Start()
@@ -29,6 +32,14 @@ namespace FluffyAdventure {
             
 
             //Instantiate(coinPrefab);
+            curentTime = Time.time;
+        }
+
+        public void ResetStats()
+        {
+            //points = 0;
+            hp = 100;
+            hpStrip.Value = 100;
             curentTime = Time.time;
         }
 
@@ -78,6 +89,11 @@ namespace FluffyAdventure {
 
                 Destroy(collision.gameObject);
             }
+            else if(collision.gameObject.CompareTag("Diamond"))
+            {
+                diamonds++;
+                Destroy(collision.gameObject);
+            }
             else if(collision.gameObject.CompareTag("Coin"))
             {
                 points++;
@@ -91,7 +107,15 @@ namespace FluffyAdventure {
                 }
                 else
                 {
-                    Destroy(collision.gameObject);
+                    if(collision.name.Contains("snail"))
+                    {
+                        collision.GetComponent<EnemyHp>().Kill();
+                    }
+                    else
+                    {
+                        Destroy(collision.gameObject);
+                    }
+                    
                 }
             }
             else if(collision.gameObject.CompareTag("Spikes"))
@@ -105,6 +129,26 @@ namespace FluffyAdventure {
             else if(collision.gameObject.CompareTag("Ladder"))
             {
                 ladder = collision.gameObject; 
+            }
+            else if(collision.gameObject.CompareTag("Level1Done"))
+            {
+                SceneManager.LoadScene("Level2");
+            }
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Debug.Log("Kolizja");
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                if (Mathf.Abs(transform.position.y - collision.gameObject.transform.position.y) < 0.3)
+                {
+                    gameOver();
+                }
+                else
+                {
+                    Destroy(collision.gameObject);
+                }
             }
         }
 

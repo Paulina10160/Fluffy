@@ -15,6 +15,7 @@ public class CameraFollow : MonoBehaviour
     {
         threshold = calculateThreshold();
         rb = followObject.GetComponent<Rigidbody2D>();
+        transform.position = new Vector3(followObject.transform.position.x, followObject.transform.position.y+followOffset.y, transform.position.z);
     }
 
     // Update is called once per frame

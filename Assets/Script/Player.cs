@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private bool isPressedW = false;
     private bool isMoving = false;
     private bool isPressedQ = false;
+    private bool isPressedSpace = false;
 
     public GroundCheck groundCheck;
 
@@ -17,7 +18,13 @@ public class Player : MonoBehaviour
 
     public float ladderSpeed;
 
-    private bool isOnLadder;
+    private bool isOnLadder = false;
+
+    public GameObject carrotPrefab;
+
+    public float shotSpeed;
+
+    public int lastDirction = 1;
 
     private void Start()
     {
@@ -62,6 +69,34 @@ public class Player : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Space)) //Kiedy przycisk jest wcisniety to tak się dzieje
+        {
+            if (!isPressedSpace)
+            {
+                isPressedSpace = true;
+                //if (grounded)
+                //{
+                    //if(Time.frameCount % 10 == 0)
+                    //{
+                GetComponent<Animator>().SetTrigger("OnShot");
+                GetComponent<Animator>().SetBool("hasGun", true);
+                GameObject carrot = Instantiate(carrotPrefab);
+                carrot.GetComponent<FlyObject>().speed = lastDirction * shotSpeed;
+                carrot.transform.position = transform.position;
+                carrot.transform.localScale = new Vector3(lastDirction, 1, 1);
+                transform.localScale = new Vector3(lastDirction, 1, 1);
+                //}
+
+                //}
+            }
+        }
+        else
+        {
+            isPressedSpace = false;
+            //GetComponent<Animator>().SetBool("hasGun", false);
+        }
+        
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (!isPressedQ)
@@ -102,14 +137,19 @@ public class Player : MonoBehaviour
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
                 }
+                else
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                }
 
                 GetComponent<Rigidbody2D>().velocity = new Vector2(move * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
                 GetComponent<Animator>().SetBool("Walking", true);
             }
-            else
+            else if(GetComponent<Animator>().GetBool("Walking"))
             {
                 transform.localScale = new Vector3(1, 1, 1);
                 GetComponent<Animator>().SetBool("Walking", false);
+                GetComponent<Animator>().SetBool("hasGun", false);
             }
         }
         else if (collision.ladder != null)
@@ -142,6 +182,15 @@ public class Player : MonoBehaviour
             GetComponent<Animator>().SetBool("OnLadder", false);
         }
 
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            lastDirction = -1;
+        }
+        else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            lastDirction = 1;
+        }
+
 
         /*if (Input.GetKey(KeyCode.D))
         {
@@ -153,8 +202,13 @@ public class Player : MonoBehaviour
         }*/
     }
 
+    public void SetToNormalScale()
+    {
+        transform.localScale = new Vector3(1, 1, 1);
+    }
+
     private void LateUpdate()
     {
-        transform.localRotation = new Quaternion(0, 0, 0, 0);
+        //transform.localRotation = new Quaternion(0, 0, 0, 0);
     }
 }
