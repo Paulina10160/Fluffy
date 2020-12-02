@@ -65,6 +65,7 @@ public class Player : MonoBehaviour
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, jumpHeight);
                         grounded = false;
                         GetComponent<Animator>().SetTrigger("StartJump");
+                        SoundManager.Instance.PlayJumpSound();
                     }
                 }
             }
@@ -81,15 +82,16 @@ public class Player : MonoBehaviour
                 isPressedSpace = true;
                 //if (grounded)
                 //{
-                    //if(Time.frameCount % 10 == 0)
-                    //{
+                //if(Time.frameCount % 10 == 0)
+                //{
+                SoundManager.Instance.PlayGunSound();
                 GetComponent<Animator>().SetTrigger("OnShot");
                 GetComponent<Animator>().SetBool("hasGun", true);
                 GameObject carrot = Instantiate(carrotPrefab);
                 carrot.GetComponent<FlyObject>().speed = lastDirction * shotSpeed;
                 carrot.transform.position = transform.position;
                 carrot.transform.localScale = new Vector3(lastDirction, 1, 1);
-                transform.localScale = new Vector3(lastDirction, 1, 1);
+                 transform.localScale = new Vector3(lastDirction, 1, 1);
                 //}
 
                 //}
@@ -112,6 +114,14 @@ public class Player : MonoBehaviour
                     if (isOnLadder)
                     {
                         //jesli jest na drabinie to wchodzi
+                        float distance = transform.position.y - collision.ladder.transform.position.y;
+                        Debug.Log(distance);
+                        if(distance > 0.8)
+                        {
+                            Vector3 v = transform.position;
+                            v.y += 0.2f;
+                            transform.position = v;
+                        }
                         isOnLadder = false;
                         GetComponent<Animator>().SetBool("OnLadder", false);
                         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;

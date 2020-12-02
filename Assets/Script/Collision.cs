@@ -152,7 +152,7 @@ namespace FluffyAdventure {
             }
             else if (collision.gameObject.CompareTag("Ground"))
             {
-
+                Debug.Log("Ground!!!");
             }
         }
 

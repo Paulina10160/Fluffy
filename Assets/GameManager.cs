@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver()
     {
+        Time.timeScale = 0;
         gameOverPanel.SetActive(true);
         gamePanel.SetActive(false);
     }
