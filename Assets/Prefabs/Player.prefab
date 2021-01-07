@@ -105,6 +105,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1034439960943049821}
+  - {fileID: 2422413073329210249}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,10 +175,14 @@ MonoBehaviour:
   jumpHeight: 10
   groundCheck: {fileID: 1034439960943049819}
   ladderSpeed: 3
-  carrotPrefab: {fileID: 4545552340037078629, guid: bc3b4298e042d3e449659cddd31437cc,
-    type: 3}
+  bulletPrefab:
+  - {fileID: 4545552340037078629, guid: bc3b4298e042d3e449659cddd31437cc, type: 3}
+  - {fileID: 5440357320609576621, guid: 4fd0c88d59091d14295724077326e6a7, type: 3}
   shotSpeed: 0.1
   lastDirction: 1
+  jumpCount: 0
+  currentAmmoIndex: 0
+  gunPoint: {fileID: 0}
 --- !u!50 &1034439961074059317
 Rigidbody2D:
   serializedVersion: 4
@@ -215,7 +220,6 @@ MonoBehaviour:
   diamonds: 0
   hpStrip: {fileID: 0}
   gameManager: {fileID: 0}
-  ladder: {fileID: 0}
 --- !u!95 &1034439961074059314
 Animator:
   serializedVersion: 3
@@ -267,3 +271,33 @@ CircleCollider2D:
   m_Offset: {x: -0.03, y: -0.19}
   serializedVersion: 2
   m_Radius: 0.14712813
+--- !u!1 &4382619351140345323
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2422413073329210249}
+  m_Layer: 15
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2422413073329210249
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4382619351140345323}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.326, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1034439961074059320}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
+    public int coins = 500;
+    public int bananaBulletCost;
     public void OnStart()
     {
         SceneManager.LoadScene("Game");
@@ -22,5 +25,17 @@ public class MainMenuManager : MonoBehaviour
         //to dziala tylko w edytorze unity, pozniej trzeba dodac inna funkcje
         EditorApplication.ExecuteMenuItem("Edit/Play");
         //Application.Quit();
+    }
+
+    public void BuyBananaBullet(Button button)
+    {
+        if(coins >= bananaBulletCost)
+        {
+            coins -= bananaBulletCost;
+            PlayerPrefs.SetInt("Ammo", 1);
+            PlayerPrefs.Save();
+            button.interactable = false;
+            button.transform.GetChild(0).gameObject.GetComponent<Animator>().SetBool("Idle", true);
+        }
     }
 }

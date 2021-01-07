@@ -20,16 +20,25 @@ public class Player : MonoBehaviour
 
     private bool isOnLadder = false;
 
-    public GameObject carrotPrefab;
+    public GameObject[] bulletPrefab;
 
     public float shotSpeed;
 
     public int lastDirction = 1;
 
+    public int jumpCount;
+
+    public int currentAmmoIndex = 0;
+
+    public Transform gunPoint;
+
     private void Start()
     {
+        //PlayerPrefs.DeleteAll();
         collision = GetComponent<FluffyAdventure.Collision>();
         groundCheck.onGrounded += GroundCheck_onGrounded;
+        jumpCount = 2;
+        currentAmmoIndex = PlayerPrefs.GetInt("Ammo", 0);
     }
 
     private void GroundCheck_onGrounded()
@@ -42,6 +51,7 @@ public class Player : MonoBehaviour
                 GetComponent<Animator>().SetTrigger("Grounded");
             }
             grounded = true;
+            jumpCount = 2;
         }
     }
 
@@ -60,12 +70,13 @@ public class Player : MonoBehaviour
                 if (!isPressedW)
                 {
                     isPressedW = true;
-                    if (grounded)
+                    if (grounded || jumpCount == 1)
                     {
                         GetComponent<Rigidbody2D>().velocity = new Vector2(0, jumpHeight);
                         grounded = false;
                         GetComponent<Animator>().SetTrigger("StartJump");
                         SoundManager.Instance.PlayJumpSound();
+                        jumpCount--;
                     }
                 }
             }
@@ -87,9 +98,9 @@ public class Player : MonoBehaviour
                 SoundManager.Instance.PlayGunSound();
                 GetComponent<Animator>().SetTrigger("OnShot");
                 GetComponent<Animator>().SetBool("hasGun", true);
-                GameObject carrot = Instantiate(carrotPrefab);
+                GameObject carrot = Instantiate(bulletPrefab[currentAmmoIndex]);
                 carrot.GetComponent<FlyObject>().speed = lastDirction * shotSpeed;
-                carrot.transform.position = transform.position;
+                carrot.transform.position = gunPoint.position;
                 carrot.transform.localScale = new Vector3(lastDirction, 1, 1);
                  transform.localScale = new Vector3(lastDirction, 1, 1);
                 //}

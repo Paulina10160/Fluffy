@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
 
     public AudioClip GunSound;
     public AudioClip JumpSound;
+    public AudioClip CoinSound;
 
     private AudioSource audioPlayer;
 
@@ -29,5 +30,10 @@ public class SoundManager : MonoBehaviour
     public void PlayGunSound()
     {
         audioPlayer.PlayOneShot(GunSound);
+    }
+
+    public void PlayCoinCollected()
+    {
+        audioPlayer.PlayOneShot(CoinSound, 0.3f);
     }
 }

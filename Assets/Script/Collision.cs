@@ -98,25 +98,11 @@ namespace FluffyAdventure {
             {
                 points++;
                 Destroy(collision.gameObject);
+                SoundManager.Instance.PlayCoinCollected();
             }
             else if (collision.gameObject.CompareTag("Enemy"))
             {
-                if (Mathf.Abs(transform.position.y - collision.gameObject.transform.position.y) < 0.3)
-                {
-                    gameOver();
-                }
-                else
-                {
-                    if(collision.name.Contains("snail"))
-                    {
-                        collision.GetComponent<EnemyHp>().Kill();
-                    }
-                    else
-                    {
-                        Destroy(collision.gameObject);
-                    }
-                    
-                }
+                gameOver();
             }
             else if(collision.gameObject.CompareTag("Spikes"))
             {
@@ -141,14 +127,7 @@ namespace FluffyAdventure {
             Debug.Log("Kolizja");
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                if (Mathf.Abs(transform.position.y - collision.gameObject.transform.position.y) < 0.3)
-                {
-                    gameOver();
-                }
-                else
-                {
-                    Destroy(collision.gameObject);
-                }
+                gameOver();
             }
             else if (collision.gameObject.CompareTag("Ground"))
             {
