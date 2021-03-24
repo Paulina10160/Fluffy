@@ -32,13 +32,30 @@ public class Player : MonoBehaviour
 
     public Transform gunPoint;
 
+    public VariableJoystick joystick;
+
+    public bool shot;
+    public bool jump;
+
     private void Start()
     {
         //PlayerPrefs.DeleteAll();
         collision = GetComponent<FluffyAdventure.Collision>();
         groundCheck.onGrounded += GroundCheck_onGrounded;
         jumpCount = 2;
-        currentAmmoIndex = PlayerPrefs.GetInt("Ammo", 0);
+        currentAmmoIndex = 0;//PlayerPrefs.GetInt("Ammo", 0);
+        shot = false;
+        jump = false;
+    }
+
+    public void shoting()
+    {
+        shot = true;
+    }
+
+    public void jumping()
+    {
+        jump = true;
     }
 
     private void GroundCheck_onGrounded()
@@ -58,15 +75,201 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Time.timeScale == 0)
+        //if(Time.timeScale == 0)
+        //{
+        //    return;
+        //}
+
+        //if (!isOnLadder)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.W)) //Kiedy przycisk jest wcisniety to tak się dzieje
+        //    {
+        //        if (!isPressedW)
+        //        {
+        //            isPressedW = true;
+        //            if (grounded || jumpCount == 1)
+        //            {
+        //                GetComponent<Rigidbody2D>().velocity = new Vector2(0, jumpHeight);
+        //                grounded = false;
+        //                GetComponent<Animator>().SetTrigger("StartJump");
+        //                SoundManager.Instance.PlayJumpSound();
+        //                jumpCount--;
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        isPressedW = false;
+        //    }
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Space)) //Kiedy przycisk jest wcisniety to tak się dzieje
+        //{
+        //    if (!isPressedSpace)
+        //    {
+        //        isPressedSpace = true;
+        //        //if (grounded)
+        //        //{
+        //        //if(Time.frameCount % 10 == 0)
+        //        //{
+        //        SoundManager.Instance.PlayGunSound();
+        //        GetComponent<Animator>().SetTrigger("OnShot");
+        //        GetComponent<Animator>().SetBool("hasGun", true);
+        //        GameObject carrot = Instantiate(bulletPrefab[currentAmmoIndex]);
+        //        carrot.GetComponent<FlyObject>().speed = lastDirction * shotSpeed;
+        //        carrot.transform.position = gunPoint.position;
+        //        carrot.transform.localScale = new Vector3(lastDirction, 1, 1);
+        //         transform.localScale = new Vector3(lastDirction, 1, 1);
+        //        //}
+
+        //        //}
+        //    }
+        //}
+        //else
+        //{
+        //    isPressedSpace = false;
+        //    //GetComponent<Animator>().SetBool("hasGun", false);
+        //}
+        
+
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    if (!isPressedQ)
+        //    {
+        //        isPressedQ = true;
+        //        if (collision.ladder != null)
+        //        {
+        //            if (isOnLadder)
+        //            {
+        //                //jesli jest na drabinie to wchodzi
+        //                float distance = transform.position.y - collision.ladder.transform.position.y;
+        //                Debug.Log(distance);
+        //                if(distance > 0.8)
+        //                {
+        //                    Vector3 v = transform.position;
+        //                    v.y += 0.2f;
+        //                    transform.position = v;
+        //                }
+        //                isOnLadder = false;
+        //                GetComponent<Animator>().SetBool("OnLadder", false);
+        //                GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+                        
+        //            }
+        //            else
+        //            {
+        //                isOnLadder = true;
+        //                //jesli nie jest na drabinie to wchodzi
+        //                GetComponent<Animator>().SetBool("OnLadder", true);
+        //                transform.position = new Vector3(collision.ladder.transform.position.x, transform.position.y, transform.position.z);
+        //                GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+        //            }
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    isPressedQ = false;
+        //}
+
+        //if (!isOnLadder)
+        //{
+        //    float move = Input.GetAxis("Horizontal");
+        //    if (move > 0.2 || move < -0.2)
+        //    {
+        //        if (move < 0)
+        //        {
+        //            transform.localScale = new Vector3(-1, 1, 1);
+        //        }
+        //        else
+        //        {
+        //            transform.localScale = new Vector3(1, 1, 1);
+        //        }
+
+        //        GetComponent<Rigidbody2D>().velocity = new Vector2(move * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+        //        GetComponent<Animator>().SetBool("Walking", true);
+        //    }
+        //    else if(GetComponent<Animator>().GetBool("Walking"))
+        //    {
+        //        transform.localScale = new Vector3(1, 1, 1);
+        //        GetComponent<Animator>().SetBool("Walking", false);
+        //        GetComponent<Animator>().SetBool("hasGun", false);
+        //    }
+        //}
+        //else if (collision.ladder != null)
+        //{
+        //    Vector3 pos = transform.position;
+
+        //    Transform posUp = collision.ladder.transform.GetChild(0);
+        //    Transform posDown = collision.ladder.transform.GetChild(1);
+
+        //    if (Input.GetKey(KeyCode.S) && pos.y >= posDown.position.y)
+        //    {
+        //        pos.y -= ladderSpeed * Time.deltaTime;
+        //        GetComponent<Animator>().SetBool("OnLadderRun", true);
+        //    }
+        //    else if (Input.GetKey(KeyCode.W) && pos.y <= posUp.position.y)
+        //    {
+        //        pos.y += ladderSpeed * Time.deltaTime;
+        //        GetComponent<Animator>().SetBool("OnLadderRun", true);
+        //    }
+        //    else
+        //    {
+        //        GetComponent<Animator>().SetBool("OnLadderRun", false);
+        //    }
+        //    transform.position = pos;
+        //}
+        //else
+        //{
+        //    isOnLadder = false;
+        //    GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //    GetComponent<Animator>().SetBool("OnLadder", false);
+        //}
+
+        //if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        //{
+        //    lastDirction = -1;
+        //}
+        //else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        //{
+        //    lastDirction = 1;
+        //}
+
+
+        /*if (Input.GetKey(KeyCode.D))
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(moveSpeed, GetComponent<Rigidbody2D>().velocity.y); //idziemy w prawo po y
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y); //idziemy w lewo po y ( bo - przed moveSpeed)
+        }*/
+
+        UpdateJoystick();
+    }
+
+    public void SetToNormalScale()
+    {
+        transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    private void LateUpdate()
+    {
+        //transform.localRotation = new Quaternion(0, 0, 0, 0);
+    }
+
+    private void UpdateJoystick()
+    {
+        if (Time.timeScale == 0)
         {
             return;
         }
 
         if (!isOnLadder)
         {
-            if (Input.GetKeyDown(KeyCode.W)) //Kiedy przycisk jest wcisniety to tak się dzieje
+            if (jump) //Kiedy przycisk jest wcisniety to tak się dzieje
             {
+                jump = false;
                 if (!isPressedW)
                 {
                     isPressedW = true;
@@ -86,8 +289,9 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) //Kiedy przycisk jest wcisniety to tak się dzieje
+        if (shot) //Kiedy przycisk jest wcisniety to tak się dzieje
         {
+            shot = false;
             if (!isPressedSpace)
             {
                 isPressedSpace = true;
@@ -102,7 +306,7 @@ public class Player : MonoBehaviour
                 carrot.GetComponent<FlyObject>().speed = lastDirction * shotSpeed;
                 carrot.transform.position = gunPoint.position;
                 carrot.transform.localScale = new Vector3(lastDirction, 1, 1);
-                 transform.localScale = new Vector3(lastDirction, 1, 1);
+                transform.localScale = new Vector3(lastDirction, 1, 1);
                 //}
 
                 //}
@@ -113,7 +317,7 @@ public class Player : MonoBehaviour
             isPressedSpace = false;
             //GetComponent<Animator>().SetBool("hasGun", false);
         }
-        
+
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -127,7 +331,7 @@ public class Player : MonoBehaviour
                         //jesli jest na drabinie to wchodzi
                         float distance = transform.position.y - collision.ladder.transform.position.y;
                         Debug.Log(distance);
-                        if(distance > 0.8)
+                        if (distance > 0.8)
                         {
                             Vector3 v = transform.position;
                             v.y += 0.2f;
@@ -136,7 +340,7 @@ public class Player : MonoBehaviour
                         isOnLadder = false;
                         GetComponent<Animator>().SetBool("OnLadder", false);
                         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-                        
+
                     }
                     else
                     {
@@ -157,22 +361,24 @@ public class Player : MonoBehaviour
 
         if (!isOnLadder)
         {
-            float move = Input.GetAxis("Horizontal");
-            if (move > 0.2 || move < -0.2)
+            float move = joystick.Horizontal;
+            if (move != 0)
             {
                 if (move < 0)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(-1 * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
                 }
                 else
                 {
                     transform.localScale = new Vector3(1, 1, 1);
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(1 * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
                 }
 
-                GetComponent<Rigidbody2D>().velocity = new Vector2(move * moveSpeed, GetComponent<Rigidbody2D>().velocity.y);
+                
                 GetComponent<Animator>().SetBool("Walking", true);
             }
-            else if(GetComponent<Animator>().GetBool("Walking"))
+            else if (GetComponent<Animator>().GetBool("Walking"))
             {
                 transform.localScale = new Vector3(1, 1, 1);
                 GetComponent<Animator>().SetBool("Walking", false);
@@ -186,12 +392,12 @@ public class Player : MonoBehaviour
             Transform posUp = collision.ladder.transform.GetChild(0);
             Transform posDown = collision.ladder.transform.GetChild(1);
 
-            if (Input.GetKey(KeyCode.S) && pos.y >= posDown.position.y)
+            if (joystick.Vertical < 0 && pos.y >= posDown.position.y)
             {
                 pos.y -= ladderSpeed * Time.deltaTime;
                 GetComponent<Animator>().SetBool("OnLadderRun", true);
             }
-            else if (Input.GetKey(KeyCode.W) && pos.y <= posUp.position.y)
+            else if (joystick.Vertical > 0 && pos.y <= posUp.position.y)
             {
                 pos.y += ladderSpeed * Time.deltaTime;
                 GetComponent<Animator>().SetBool("OnLadderRun", true);
@@ -209,13 +415,13 @@ public class Player : MonoBehaviour
             GetComponent<Animator>().SetBool("OnLadder", false);
         }
 
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        {
-            lastDirction = -1;
-        }
-        else if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        if (joystick.Horizontal > 0)
         {
             lastDirction = 1;
+        }
+        else if (joystick.Horizontal < 0)
+        {
+            lastDirction = -1;
         }
 
 
@@ -227,15 +433,5 @@ public class Player : MonoBehaviour
         {
             GetComponent<Rigidbody2D>().velocity = new Vector2(-moveSpeed, GetComponent<Rigidbody2D>().velocity.y); //idziemy w lewo po y ( bo - przed moveSpeed)
         }*/
-    }
-
-    public void SetToNormalScale()
-    {
-        transform.localScale = new Vector3(1, 1, 1);
-    }
-
-    private void LateUpdate()
-    {
-        //transform.localRotation = new Quaternion(0, 0, 0, 0);
     }
 }

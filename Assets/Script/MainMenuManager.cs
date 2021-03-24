@@ -11,6 +11,9 @@ public class MainMenuManager : MonoBehaviour
     public int bananaBulletCost;
     public void OnStart()
     {
+        Time.timeScale = 1;
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
         SceneManager.LoadScene("Game");
     }
 
