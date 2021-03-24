@@ -26,8 +26,8 @@ public class MainMenuManager : MonoBehaviour
     public void OnExit()
     {
         //to dziala tylko w edytorze unity, pozniej trzeba dodac inna funkcje
-        EditorApplication.ExecuteMenuItem("Edit/Play");
-        //Application.Quit();
+        //EditorApplication.ExecuteMenuItem("Edit/Play");
+        Application.Quit();
     }
 
     public void BuyBananaBullet(Button button)
