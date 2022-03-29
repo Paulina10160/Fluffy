@@ -15,6 +15,7 @@ public class PlayerJump : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            print("JUMP");
             GetComponent<Rigidbody2D>().velocity = new Vector2(0, 3);
         }
     }

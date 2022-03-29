@@ -961,10 +961,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1604188867}
   - component: {fileID: 1604188866}
-  - component: {fileID: 1604188865}
-  - component: {fileID: 1604188864}
   - component: {fileID: 1604188868}
   - component: {fileID: 1604188869}
+  - component: {fileID: 1604188864}
+  - component: {fileID: 1604188871}
+  - component: {fileID: 1604188865}
   m_Layer: 0
   m_Name: RabbitGun0
   m_TagString: Untagged
@@ -972,29 +973,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &1604188864
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!95 &1604188864
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604188863}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
---- !u!58 &1604188865
-CircleCollider2D:
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: eb5c985c0c6c4a3469f6a54c81f94709, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!60 &1604188865
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1007,8 +1006,50 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.435
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 1.2}
+    newSize: {x: 0.87, y: 0.87}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.84999996, y: -0.39}
+      - {x: 0.90999997, y: -0.39}
+      - {x: 0.93, y: -0.37}
+      - {x: 0.93, y: 0.13}
+      - {x: 0.90999997, y: 0.14999999}
+      - {x: 0.84, y: 0.17}
+      - {x: 0.78999996, y: -0.01}
+      - {x: 0.48, y: 0.03}
+      - {x: 0.42999998, y: 0.13}
+      - {x: 0.35, y: 0.38}
+      - {x: 0.29999998, y: 0.47}
+      - {x: 0.16, y: 0.58}
+      - {x: 0.099999994, y: 0.59999996}
+      - {x: -0.21, y: 0.59999996}
+      - {x: -0.24, y: 0.59}
+      - {x: -0.39999998, y: 0.44}
+      - {x: -0.45, y: 0.32}
+      - {x: -0.58, y: 0.16}
+      - {x: -0.71999997, y: 0.31}
+      - {x: -0.95, y: 0.5}
+      - {x: -0.96999997, y: 0.41}
+      - {x: -0.91999996, y: 0.11}
+      - {x: -0.95, y: -0.02}
+      - {x: -0.96, y: -0.25}
+      - {x: -1, y: -0.26999998}
+      - {x: -1, y: -0.38}
+      - {x: -0.85999995, y: -0.44}
+      - {x: -0.79999995, y: -0.47}
+      - {x: -0.59, y: -0.47}
+      - {x: -0.14999999, y: -0.45}
+      - {x: 0.61, y: -0.35999998}
+      - {x: 0.71, y: -0.32999998}
+      - {x: 0.82, y: -0.38}
 --- !u!212 &1604188866
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1045,10 +1086,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1503661433
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b985d02d301339943942ae4b3d5776f2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47b003a18c54aa44190043203dea8b38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1068,7 +1109,7 @@ Transform:
   m_GameObject: {fileID: 1604188863}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -1100,6 +1141,27 @@ MonoBehaviour:
   scroller: {fileID: 1910113051}
   gameOverPanel: {fileID: 2117906329}
   points: 0
+--- !u!50 &1604188871
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604188863}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0.5
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &1716757510
 GameObject:
   m_ObjectHideFlags: 0

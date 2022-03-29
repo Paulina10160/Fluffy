@@ -9,11 +9,10 @@ public class MainMenuManager : MonoBehaviour
 {
     public int coins = 500;
     public int bananaBulletCost;
+    public bool removePlayerPrefsOnExit;
     public void OnStart()
     {
         Time.timeScale = 1;
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
         SceneManager.LoadScene("Game");
     }
 
@@ -27,18 +26,38 @@ public class MainMenuManager : MonoBehaviour
     {
         //to dziala tylko w edytorze unity, pozniej trzeba dodac inna funkcje
         //EditorApplication.ExecuteMenuItem("Edit/Play");
+        //TODO: usunac w produkcji
+        if(removePlayerPrefsOnExit)
+        {
+            PlayerPrefs.DeleteAll();
+            PlayerPrefs.Save();
+        }
+        //----------------------------
         Application.Quit();
     }
 
     public void BuyBananaBullet(Button button)
     {
-        if(coins >= bananaBulletCost)
+        int banana = PlayerPrefs.GetInt("BuyBanana", 0);
+        if (banana == 1) //znaczy ze kupiony
         {
-            coins -= bananaBulletCost;
             PlayerPrefs.SetInt("Ammo", 1);
             PlayerPrefs.Save();
-            button.interactable = false;
-            button.transform.GetChild(0).gameObject.GetComponent<Animator>().SetBool("Idle", true);
         }
+        else if(coins >= bananaBulletCost)
+        {
+            coins -= bananaBulletCost;
+            PlayerPrefs.SetInt("BuyBanana", 1);
+            PlayerPrefs.SetInt("Ammo", 1);
+            PlayerPrefs.Save();
+            Text priceText = button.GetComponentInChildren<Text>();
+            priceText.text = "SOLD";
+        }
+    }
+
+    public void BuyCarrotBullet(Button button)
+    {
+        PlayerPrefs.SetInt("Ammo", 0);
+        PlayerPrefs.Save();
     }
 }
